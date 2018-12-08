@@ -41,11 +41,11 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', 'db4free.net'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'amber_test_xzkl'),
-            'username' => env('DB_USERNAME', 'xzkl_admin'),
-            'password' => env('DB_PASSWORD', 'xzkl_admin'),
+            'host' => env('db_host'),
+            'port' => env('DB_PORT'),
+            'database' => env('DB_DATABASE'),
+            'username' => env('db_username'),
+            'password' => env('db_password'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
