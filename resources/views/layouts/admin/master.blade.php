@@ -28,7 +28,7 @@
     <link href="./vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     <link href="../vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
     <!-- bootstrap-datatables -->
-    <link href="../css/select2.css" rel="stylesheet">
+    <link href="./build/css/select2.css" rel="stylesheet">
 
 
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
