@@ -1,17 +1,16 @@
-@extends('layouts.admin.master')
-@section('head')
-  @parent
-  <meta name="csrf-token" content="{{ csrf_token() }}" />
-@stop
-@section('title', 'Receiving Input')
+<?php $__env->startSection('head'); ?>
+  ##parent-placeholder-1a954628a960aaef81d7b2d4521929579f3541e6##
+  <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>" />
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('title', 'Receiving Input'); ?>
 
-@section('styles')
-    @parent
+<?php $__env->startSection('styles'); ?>
+    ##parent-placeholder-bf62280f159b1468fff0c96540f3989d41279669##
    
 
-@stop
-@section('content')
-    @parent
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+    ##parent-placeholder-040f06fd774092478d450774f5ba30c5da78acc8##
      <div class="right_col" role="main">
           <!-- top tiles -->
                     <div class="">
@@ -96,9 +95,9 @@
                             <div class="col-md-6 col-sm-6 col-xs-12">
                               <select class="form-control col-md-7 col-xs-12" name="branch_select_from" id="branch_select_from">     
                                 <option value="#" disabled>Branch to Supply</option>
-                                @foreach($branch as $key =>$branch_from)
-                                        <option value="{{$branch_from->id}}">{{ $branch_from->branch_name}} - {{ $branch_from->branch_code }}</option>
-                                    @endforeach
+                                <?php $__currentLoopData = $branch; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key =>$branch_from): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($branch_from->id); ?>"><?php echo e($branch_from->branch_name); ?> - <?php echo e($branch_from->branch_code); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                             </div>
                           </div>
@@ -109,9 +108,9 @@
                             <div class="col-md-6 col-sm-6 col-xs-12">
                               <select class="form-control col-md-7 col-xs-12" name="branch_select" id="branch_select">     
                                 <option value="#" disabled>Branch to Supply</option>
-                                @foreach($branch as $key =>$branch)
-                                        <option value="{{$branch->id}}">{{ $branch->branch_name}} - {{ $branch->branch_code }}</option>
-                                    @endforeach
+                                <?php $__currentLoopData = $branch; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key =>$branch): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($branch->id); ?>"><?php echo e($branch->branch_name); ?> - <?php echo e($branch->branch_code); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                             </div>
                           </div>
@@ -129,7 +128,7 @@
                           </div> -->
                         </div>
 
-                      </div>fdsafa
+                      </div>
                       <div id="step-2">
                         <h2 class="StepTitle">Step 2 Select Items</h2>
                         <div class="form-horizontal form-label-left">
@@ -140,9 +139,9 @@
                             <div class="col-md-6 col-sm-6 col-xs-12">
                               <select class="form-control col-md-7 col-xs-12" name="item"  id="item" required>     
                                 <option value="#" disabled>Select Items</option>
-                                @foreach($items as $key =>$item)
-                                        <option value="{{$item->id}}">{{$item->item_desc1}} - {{$item->item_code }}</option>
-                                    @endforeach
+                                <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key =>$item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($item->id); ?>"><?php echo e($item->item_desc1); ?> - <?php echo e($item->item_code); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                                 
                             </div>
@@ -221,21 +220,21 @@
 
 
                       <tbody>
-                      @foreach($inventory as $key =>$i)
-                       <tr class="id{{$i->id}}">
-                        <td>{{$i->inventory_no}}</td>
-                        <td>{{$i->lname}}, {{ $i->fname }}</td>
-                        <td>{{$i->supplier_name}}</td>
-                         <td>{{$i->branch_name}}</td>
-                        <td>{{$i->remarks}}</td>
-                        <td>{{$i->date_created}}</td>
+                      <?php $__currentLoopData = $inventory; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key =>$i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                       <tr class="id<?php echo e($i->id); ?>">
+                        <td><?php echo e($i->inventory_no); ?></td>
+                        <td><?php echo e($i->lname); ?>, <?php echo e($i->fname); ?></td>
+                        <td><?php echo e($i->supplier_name); ?></td>
+                         <td><?php echo e($i->branch_name); ?></td>
+                        <td><?php echo e($i->remarks); ?></td>
+                        <td><?php echo e($i->date_created); ?></td>
                         <td>
                           <button type="button" class="btn btn-round btn-view btn-xs">
                             <i class="glyphicon glyphicon-eye-open"></i>
                           </button>
                         </td>
                       </tr>
-                      @endforeach
+                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                       </tbody>
                     </table>
                   </div>
@@ -246,10 +245,10 @@
         </div>
          <!-- jQuery Smart Wizard -->
 
-        @endsection
+        <?php $__env->stopSection(); ?>
 
-    @section('scripts')
-            @parent
+    <?php $__env->startSection('scripts'); ?>
+            ##parent-placeholder-16728d18790deb58b3b8c1df74f06e536b532695##
         <script src="./vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
         <script>
              $('select').select2();
@@ -477,4 +476,5 @@
           });
         </script>
 
-      @stop
+      <?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.admin.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
