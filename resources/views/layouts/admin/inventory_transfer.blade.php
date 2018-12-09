@@ -81,7 +81,7 @@
                           <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Transfer Mode <span class="required">*</span>
                             </label>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div class="col-md-6 col-sm-6 col-xs-12">
                               <select class="form-control col-md-7 col-xs-12" name="transfer_mode" id="transfer_mode" required>     
                                     <option value="" disabled selected>---</option>
                                     <option value="warehouse">Warehouse to Branch transfer</option>

@@ -72,26 +72,55 @@ class adminController extends Controller
     	->where('inventory_type', 'Branch')
     	->paginate(500000);
 
+
+    	$inventory_list = DB::table('inventory_group')
+	        	->join('inventory_items', 'inventory_group.id', '=', 'inventory_items.inventory_id')
+		    	->join('items', 'items.id', '=', 'inventory_items.item_id')
+		    	->join('branch', 'inventory_group.branch_id', '=', 'branch.id')
+		    	->get();
+
+		$branch_groupings = DB::table('inventory_group')
+				->select('inventory_group.branch_id', 'branch.branch_name')
+		    	->join('branch', 'inventory_group.branch_id', '=', 'branch.id')
+		    	->groupBy('inventory_group.branch_id' , 'branch.branch_name')
+		    	->get();
+
+
+    	$item_cat = DB::table('items')
+    			->select('category1')
+                ->groupBy('category1')
+                ->get();
+        $item_cat2 = DB::table('items')
+    			->select('category2')
+                ->groupBy('category2')
+                ->get();
+
+        $item_cat3 = DB::table('items')
+    			->select('category3')
+                ->groupBy('category3')
+                ->get();
+
     	$items = DB::table('items')->get();
     	$branch = DB::table('branch')->get();
 
-          return view('layouts.admin.inventory_balance',compact('items', 'suppliers', 'inventory', 'branch'));
+          return view('layouts.admin.inventory_balance',compact('items', 'suppliers', 'inventory', 'branch','item_cat','item_cat2','item_cat3','inventory_list', 'branch_groupings'));
 
     }
 
     public function inventory_transfer()
     {
-    	$suppliers = DB::table('suppliers_table')->paginate(500000);
-    	$items = DB::table('items')->paginate(50000);
+    	$suppliers = DB::table('suppliers_table')->get();
+    	$items = DB::table('items')->get();
     	$inventory = DB::table('inventory_group')
     	->join('users', 'users.id', '=', 'inventory_group.user_id')
     	->join('suppliers_table', 'suppliers_table.id', '=', 'inventory_group.supplier_id')
     	->join('branch', 'branch.id', '=', 'inventory_group.branch_id')
     	->where('inventory_type', 'Branch')
-    	->paginate(500000);
+    	->where('inventory_items')
+    	->get();
 
-    	$items = DB::table('items')->paginate(500000);
-    	$branch = DB::table('branch')->paginate(500000);
+    	$items = DB::table('items')->get();
+    	$branch = DB::table('branch')->get();
 
         return view('layouts.admin.inventory_transfer',compact('items', 'suppliers', 'inventory', 'branch'));
 

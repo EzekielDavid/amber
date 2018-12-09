@@ -3,7 +3,7 @@
   @parent
   <meta name="csrf-token" content="{{ csrf_token() }}" />
 @stop
-@section('title', 'Receiving Input')
+@section('title', 'Amber | Inventory Balance')
 
 @section('styles')
     @parent
@@ -48,13 +48,45 @@
                     <br />
                     <form class="form-horizontal form-label-left input_mask">
 
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Default Input</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                          <input type="text" class="form-control" id="inputSuccess5" placeholder="Phone">
-                          <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
-                        </div>
-                      </div>
+                          <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Category1 <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <select class="form-control col-md-7 col-xs-12" name="item"  id="item" multiple="multiple" required>    
+                                    <option value="">All</option> 
+                                  @foreach($item_cat as $key =>$item)
+                                        <option value="{{$item->category1}}">{{$item->category1}}</option>
+                                    @endforeach
+                                </select>
+                                
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Category2 <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <select class="form-control col-md-7 col-xs-12" name="item2"  id="item2" multiple="multiple" required>    
+                                    <option value="">All</option> 
+                                  @foreach($item_cat2 as $key =>$item2)
+                                        <option value="{{$item2->category2}}">{{$item2->category2}}</option>
+                                    @endforeach
+                                </select>
+                                
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Category3 <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <select class="form-control col-md-7 col-xs-12" name="item_cat3"  id="item_cat3" multiple="multiple" required>    
+                                    <option value="">All</option> 
+                                  @foreach($item_cat3 as $key =>$item3)
+                                        <option value="{{$item3->category3}}">{{$item3->category3}}</option>
+                                    @endforeach
+                                </select>
+                                
+                            </div>
+                          </div>
 
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Branch</label>
@@ -64,7 +96,7 @@
                                 @foreach($branch as $key =>$branch)
                                         <option value="{{$branch->id}}">{{ $branch->branch_name}} - {{ $branch->branch_code }}</option>
                                     @endforeach
-                                </select>
+                          </select>
                         </div>
                       </div>
                       <div class="ln_solid"></div>
@@ -87,29 +119,42 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <table id="inventory_table" class="table table-striped table-bordered">
+                    <table id="inventory_table" class="table table-striped table-bordered" style="width:100%;">
                       <thead>
                         <tr>
-                          <th>Inventory Code</th>
-                          <th>Created By</th>
-                          <th>Supplier</th>
-                          <th>Remarks</th>
-                          <th>Date Created</th>
+                          <th>Branch</th>
+                          <th>Inventory #</th>
+                          <th>Item No.</th>
+                          <th>Item Desc</th>
+                          <th>Created</th>
+                          <th>Quantity</th>
+                          <th>Actual Count</th>
                    
                         </tr>
                       </thead>
 
 
                       <tbody>
-                      @foreach($inventory as $key =>$i)
-                       <tr class="id{{$i->id}}">
-                        <td>{{$i->inventory_no}}</td>
-                        <td>{{$i->lname}}, {{ $i->fname }}</td>
-                        <td>{{$i->supplier_name}}</td>
-                        <td>{{$i->remarks}}</td>
-                        <td>{{$i->date_created}}</td>
-                      </tr>
-                      @endforeach
+
+                   
+                        @foreach($inventory_list as $key =>$i)
+                
+                             <tr>
+                               <td>
+                        
+                                {{$i->branch_name}}
+                     
+                              </td>
+                              <td>{{$i->inventory_no}}</td>
+                              <td>{{$i->item_code}}</td>
+                              <td>{{$i->item_desc1}}</td>
+                              <td>{{$i->date_created}}</td>
+                              <td>{{$i->quantity}}</td>
+                              <td></td>
+                            </tr>
+                        
+                        @endforeach
+                 
                       </tbody>
                     </table>
                   </div>
@@ -131,8 +176,9 @@
         <script type="text/javascript">
           $(document).ready(function(){
             console.log('test');
+
                  $('select').select2();
-            var table = $('#added-item-table').DataTable({
+                        var table = $('#added-item-table').dataTable({
                           "bFilter": false,
                           "bAutoWidth": false,
                           "bPaginate": false,
@@ -148,25 +194,58 @@
                             null
                           ]
                   });
-            var inv_table  = $('#inventory_table').DataTable( {
+            var groupColumn = 0 ;
+            var inv_table  = $('#inventory_table').DataTable({
                 dom: 'Bfrtip',
+                "columnDefs": [
+                      { "visible": false, "targets": groupColumn }
+                  ],
+                buttons: [{
+                  extend: "copy",
+                  className: "btn-sm",
+                    exportOptions: {
+                      columns: [1, 2, 3,4, 5,6 ]
+                    }
+                }, {
+                  extend: "csv",
+                  className: "btn-sm",
+                }, {
+                  extend: "excel",
+                  className: "btn-sm",
+                }, {
+                  extend: "pdf",
+                  className: "btn-sm",
+                    exportOptions: {
+                      columns: [1, 2, 3,4, 5,6 ]
+                    }
+                }, {
+                  extend: "print",
+                  className: "btn-sm",
+                    exportOptions: {
+                      columns: [1, 2, 3,4, 5,6 ]
+                    }
+                }],
 
-        buttons: [{
-          extend: "copy",
-          className: "btn-sm"
-        }, {
-          extend: "csv",
-          className: "btn-sm"
-        }, {
-          extend: "excel",
-          className: "btn-sm"
-        }, {
-          extend: "pdf",
-          className: "btn-sm"
-        }, {
-          extend: "print",
-          className: "btn-sm"
-        }],
+
+            drawCallback: function (settings) {
+            var api = this.api();
+            console.log(api);
+            var rows = api.rows({ page: 'current' }).nodes();
+            var last = null;
+
+            api.column(0, { page: 'current' }).data().each(function (branch_name, i) {
+
+                if (last !== branch_name) {
+
+                    $(rows).eq(i).before(
+                        '<tr class="group"><td colspan="8" style="BACKGROUND-COLOR:rgb(237, 208, 0);font-weight:700;color:#006232;">' + 'BRANCH: ' +branch_name.toUpperCase()   + '</td></tr>'
+                    );
+
+                    last = branch_name;
+                }
+            });
+        }
+
             });
            $('#add-item').click(function(){
                 let item_name = $('#item option:selected').text();
