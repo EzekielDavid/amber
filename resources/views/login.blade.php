@@ -53,7 +53,7 @@
                 <br />
 
                 <div>
-                  <h1><i class="fa fa-paw"></i> Amber Login</h1>
+                  <h1><i class="fa fa-users"></i> Amber Login</h1>
                   <p>©2018 All Rights Reserved</p>
                 </div>
               </div>
