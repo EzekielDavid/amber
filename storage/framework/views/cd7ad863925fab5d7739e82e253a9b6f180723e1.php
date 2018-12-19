@@ -359,7 +359,7 @@
                       console.log(response)
                        new PNotify({
                                   title: 'Inventory Receiving Success',
-                                  text: response['success'],
+                                  text: 'Insert Success!',
                                   type: 'success',
                                   styling: 'bootstrap3'
                               });

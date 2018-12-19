@@ -104,7 +104,6 @@ class adminController extends Controller
     	$branch = DB::table('branch')->get();
 
           return view('layouts.admin.inventory_balance',compact('items', 'suppliers', 'inventory', 'branch','item_cat','item_cat2','item_cat3','inventory_list', 'branch_groupings'));
-
     }
 
     public function inventory_transfer()
@@ -116,7 +115,6 @@ class adminController extends Controller
     	->join('suppliers_table', 'suppliers_table.id', '=', 'inventory_group.supplier_id')
     	->join('branch', 'branch.id', '=', 'inventory_group.branch_id')
     	->where('inventory_type', 'Branch')
-    	->where('inventory_items')
     	->get();
 
     	$items = DB::table('items')->get();
@@ -256,6 +254,50 @@ class adminController extends Controller
 	        }
 	    }
     }
+
+    public function search_inventory_balance(Request $request){
+    	if ($request->ajax())
+    	{
+	        try{
+	        	$inventory_list = DB::table('inventory_items')
+	        	->join('inventory_group', 'inventory_group.id', '=', 'inventory_items.inventory_id')
+		    	->join('items', 'items.id', '=', 'inventory_items.item_id')
+		    	->join('branch', 'inventory_group.branch_id', '=', 'branch.id')
+		    	->where(function($query ) use ($request)
+				{
+				        if($request->branch !== null)
+					        $query->WhereIn( 'branch_id', $request->branch );
+											
+				})
+				->where(function($query ) use ($request)
+				{
+				        if($request->cat1 !== null)
+					        $query->WhereIn( 'category1', $request->cat1 );
+											
+				})
+				->where(function($query ) use ($request)
+				{
+				        if($request->cat2 !== null)
+					        $query->WhereIn( 'category2', $request->cat2 );
+											
+				})
+				->where(function($query ) use ($request)
+				{
+				        if($request->cat3 !== null)
+					        $query->WhereIn( 'category3', $request->cat3 );
+											
+				})
+
+		    	->get();
+			     
+	                return response()->json($inventory_list, 200); 
+	            }
+	            catch (\Exception $e) {
+	        return $e->getMessage();
+	        }
+	    }
+    }
+
 
 	
 

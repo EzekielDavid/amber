@@ -46,14 +46,13 @@
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left input_mask">
+                    <form id="search" class="form-horizontal form-label-left input_mask">
 
                           <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Category1 <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Category1
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <select class="form-control col-md-7 col-xs-12" name="item"  id="item" multiple="multiple" required>    
-                                    <option value="">All</option> 
+                              <select class="form-control col-md-7 col-xs-12" name="cat1"  id="cat1"  multiple="multiple" >    
                                   @foreach($item_cat as $key =>$item)
                                         <option value="{{$item->category1}}">{{$item->category1}}</option>
                                     @endforeach
@@ -62,11 +61,11 @@
                             </div>
                           </div>
                           <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Category2 <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Category2 
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <select class="form-control col-md-7 col-xs-12" name="item2"  id="item2" multiple="multiple" required>    
-                                    <option value="">All</option> 
+                              <select class="form-control col-md-7 col-xs-12" name="cat2"  id="cat2" multiple="multiple" >    
+                          
                                   @foreach($item_cat2 as $key =>$item2)
                                         <option value="{{$item2->category2}}">{{$item2->category2}}</option>
                                     @endforeach
@@ -75,11 +74,11 @@
                             </div>
                           </div>
                           <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Category3 <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Category3 
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <select class="form-control col-md-7 col-xs-12" name="item_cat3"  id="item_cat3" multiple="multiple" required>    
-                                    <option value="">All</option> 
+                              <select class="form-control col-md-7 col-xs-12" name="cat3"  id="cat3" multiple="multiple" >    
+                    
                                   @foreach($item_cat3 as $key =>$item3)
                                         <option value="{{$item3->category3}}">{{$item3->category3}}</option>
                                     @endforeach
@@ -88,17 +87,18 @@
                             </div>
                           </div>
 
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Branch</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                         <select class="form-control col-md-7 col-xs-12" name="branch_select" id="branch_select" required>     
-                                <option value="" >All</option>
-                                @foreach($branch as $key =>$branch)
+                          <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Branch 
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <select class="form-control col-md-7 col-xs-12" name="branch_select"  id="branch_select" multiple="multiple" >    
+                                    @foreach($branch as $key =>$branch)
                                         <option value="{{$branch->id}}">{{ $branch->branch_name}} - {{ $branch->branch_code }}</option>
                                     @endforeach
-                          </select>
-                        </div>
-                      </div>
+                                </select>
+                                
+                            </div>
+                          </div>
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
@@ -174,106 +174,117 @@
         <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
         <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
         <script type="text/javascript">
-          $(document).ready(function(){
-            console.log('test');
-
-                 $('select').select2();
-                        var table = $('#added-item-table').dataTable({
-                          "bFilter": false,
-                          "bAutoWidth": false,
-                          "bPaginate": false,
-                          "language" : 
-                            {
-                                    "zeroRecords": " "             
-                            },
-                          "columns": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            null
-                          ]
-                  });
-            var groupColumn = 0 ;
-            var inv_table  = $('#inventory_table').DataTable({
+        $(document).ready(function() {
+            $('select').select2();
+            var groupColumn = 0;
+            var inv_table = $('#inventory_table').DataTable({
                 dom: 'Bfrtip',
-                "columnDefs": [
-                      { "visible": false, "targets": groupColumn }
-                  ],
+                columnDefs: [{
+                    "visible": false,
+                    "targets": groupColumn
+                }],
                 buttons: [{
-                  extend: "copy",
-                  className: "btn-sm",
+                    extend: "copy",
+                    className: "btn-sm",
                     exportOptions: {
-                      columns: [1, 2, 3,4, 5,6 ]
+                        columns: [0,1, 2, 3, 4, 5, 6]
                     }
                 }, {
-                  extend: "csv",
-                  className: "btn-sm",
+                    extend: "csv",
+                    className: "btn-sm",
                 }, {
-                  extend: "excel",
-                  className: "btn-sm",
+                    extend: "excel",
+                    className: "btn-sm",
                 }, {
-                  extend: "pdf",
-                  className: "btn-sm",
+                    extend: "pdf",
+                    className: "btn-sm",
                     exportOptions: {
-                      columns: [1, 2, 3,4, 5,6 ]
+                        columns: [0,1, 2, 3, 4, 5, 6]
                     }
                 }, {
-                  extend: "print",
-                  className: "btn-sm",
+                    extend: "print",
+                    className: "btn-sm",
                     exportOptions: {
-                      columns: [1, 2, 3,4, 5,6 ]
+                        columns: [0,1, 2, 3, 4, 5, 6]
                     }
                 }],
 
 
-            drawCallback: function (settings) {
-            var api = this.api();
-            console.log(api);
-            var rows = api.rows({ page: 'current' }).nodes();
-            var last = null;
+                drawCallback: function(settings) {
+                    var api = this.api();
+                    console.log(api);
+                    var rows = api.rows({
+                        page: 'current'
+                    }).nodes();
+                    var last = null;
 
-            api.column(0, { page: 'current' }).data().each(function (branch_name, i) {
+                    api.column(0, {
+                        page: 'current'
+                    }).data().each(function(branch_name, i) {
 
-                if (last !== branch_name) {
+                        if (last !== branch_name) {
 
-                    $(rows).eq(i).before(
-                        '<tr class="group"><td colspan="8" style="BACKGROUND-COLOR:rgb(237, 208, 0);font-weight:700;color:#006232;">' + 'BRANCH: ' +branch_name.toUpperCase()   + '</td></tr>'
-                    );
+                            $(rows).eq(i).before(
+                                '<tr class="group"><td colspan="8" style="BACKGROUND-COLOR:rgb(237, 208, 0);font-weight:700;color:#006232;">' + 'BRANCH: ' + branch_name.toUpperCase() + '</td></tr>'
+                            );
 
-                    last = branch_name;
+                            last = branch_name;
+                        }
+                    });
                 }
-            });
-        }
 
             });
-           $('#add-item').click(function(){
+            $('#add-item').click(function() {
                 let item_name = $('#item option:selected').text();
                 let item_id = $('#item').val()
                 addRow(item_name, item_id)
             });
 
-            function addRow(item_name, item_id) {
-                // Add new row as per index counter
-                table.row.add( [
-                    '<input type="text" id="itemno" value="'+item_id+'" hidden>',
-                    item_name,
-                    '<input type="text" id="remarks" class="form-control col-md-7 col-xs-12">',
-                    '<input type="number"  min="0" value="0" id="quantity_input" required="required" class="form-control col-md-7 col-xs-12">',
-                    '<button type="button" class="btn btn-round btn-danger btn-xs">'+
-                 '<i class="glyphicon glyphicon-remove">'+
-               '</i>'+'</button>'
-                ] ).draw( false );
-            }
-
-           $('#added-item-table').on("click", "button", function(){
-              console.log($(this).parent());
-               var row = this.closest('tr');
-              table.row(row).remove().draw(false);
+            $( "#search" ).submit(function( event ) {
+               event.preventDefault();
+               var cat1 = $("#cat1").val(); 
+               var cat2 = $("#cat2").val(); 
+               var cat3 = $("#cat3").val(); 
+               var branch = $("#branch_select").val();
+               searchItems(cat1, cat2, cat3, branch);
             });
+            function searchItems(cat1, cat2, cat3,branch){
+              $.ajax({
+                    type: 'post',
+                    url: 'searchItems',
+                    data: {
+                        'cat1': cat1,
+                        'cat2': cat2,
+                        'cat3': cat3,
+                        'branch': branch,
+                        '_token': $('meta[name="csrf-token"]').attr('content'),
+                    }
+                }).done(function (result) {
+                    Notif('success', 'Search loaded successfully');
+                    console.log(result);
+                
+                    var result = result.map(function(item){
+                        var result = [];
+                        result.push(item.branch_name);
+                        result.push(item.inventory_no); 
+                        result.push(item.item_code); 
+                        result.push(item.item_desc1); 
+                        result.push(item.date_created); 
+                        result.push(item.quantity); 
+                        result.push(""); 
+                        return result;
+                      });
 
-
-          });
+                    console.log(result);
+                    
+                    inv_table.clear().draw();
+                    inv_table.rows.add(result).draw();
+                  })
+                .fail(function (jqXHR, textStatus, errorThrown) { 
+                      Notif('warning', 'Search loaded failed');
+                });
+            }
+        });
         </script>
 
       @stop

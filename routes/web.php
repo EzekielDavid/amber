@@ -49,6 +49,9 @@ Route::group(['middleware'=>['authen','roles'],'roles'=>['Administrator']],funct
 	Route::post('/getInventoryList', ['as'=>'getInventoryList', 'uses'=>'admin\adminController@getInventoryList']);
 
 	Route::post('/getBranchStock', ['as'=>'getBranchStock', 'uses'=>'admin\adminController@getBranchStock']);
+
+	Route::post('/searchItems', ['as'=>'searchItems', 'uses'=>'admin\adminController@search_inventory_balance']);
+
 	Route::resource('admin', 'adminController');
 		
 });

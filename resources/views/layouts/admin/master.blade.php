@@ -114,6 +114,16 @@
     <script src="./js/select2.js"></script>
    
     <!-- Custom Theme Scripts -->
+    <script>
+        function Notif(type, text){
+            new PNotify({
+                                  title: 'Message',
+                                  text: text,
+                                  type: type,
+                                  styling: 'bootstrap3'
+            });
+        }
+    </script>
     @section ('scripts')
     @show
        <script src="./build/js/custom.min.js"></script>
