@@ -288,7 +288,7 @@ class adminController extends Controller
 											
 				})
 		    	->get();
-			     dd($inventory_list); die();
+			     
 	                return response()->json($inventory_list, 200); 
 	            }
 	            catch (\Exception $e) {
