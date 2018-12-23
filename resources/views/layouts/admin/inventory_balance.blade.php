@@ -249,7 +249,8 @@
                searchItems(cat1, cat2, cat3, branch);
             });
             function searchItems(cat1, cat2, cat3,branch){
-              $.ajax({
+              $.ajax(
+              {
                     type: 'post',
                     url: 'getSearchItems',
                     data: {
@@ -258,30 +259,28 @@
                         'cat3': cat3,
                         'branch': branch,
                         '_token': $('meta[name="csrf-token"]').attr('content'),
-                    }
-                }).done(function (result) {
-                    Notif('success', 'Search loaded successfully');
-                    console.log(result);
-                
-                    var result = result.map(function(item){
-                        var result = [];
-                        result.push(item.branch_name);
-                        result.push(item.inventory_no); 
-                        result.push(item.item_code); 
-                        result.push(item.item_desc1); 
-                        result.push(item.date_created); 
-                        result.push(item.quantity); 
-                        result.push(""); 
-                        return result;
-                      });
+                    },
+                    success: function(result){
+                          Notif('success', 'Search loaded successfully');
+                          console.log(result);
+                      
+                          var result = result.map(function(item){
+                              var result = [];
+                              result.push(item.branch_name);
+                              result.push(item.inventory_no); 
+                              result.push(item.item_code); 
+                              result.push(item.item_desc1); 
+                              result.push(item.date_created); 
+                              result.push(item.quantity); 
+                              result.push(""); 
+                              return result;
+                            });
 
-                    console.log(result);
-                    
-                    inv_table.clear().draw();
-                    inv_table.rows.add(result).draw();
-                  })
-                .fail(function (jqXHR, textStatus, errorThrown) { 
-                      Notif('warning', 'Search loaded failed');
+                          console.log(result);
+                          
+                          inv_table.clear().draw();
+                          inv_table.rows.add(result).draw();
+                    }
                 });
             }
         });
