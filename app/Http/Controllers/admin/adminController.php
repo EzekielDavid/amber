@@ -287,7 +287,6 @@ class adminController extends Controller
 					        $query->WhereIn( 'category3', $request->cat3 );
 											
 				})
-
 		    	->get();
 			     
 	                return response()->json($inventory_list, 200); 
