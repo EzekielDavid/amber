@@ -2,12 +2,13 @@ create table inventory_group (
 	id int unsigned auto_increment not null primary key,
 	user_id int not null,
         supplier_id int not null,
-        branch_id_from int ,
-        branch_id_to int ,
-        inventory_type varchar(100),
-        remarks varchar(500),
         date_received  datetime, 
-        date_created timestamp 
+        date_created timestamp,
+        remarks varchar(500),
+        inventory_no varchar(500),
+        branch_id int,
+        inventory_type varchar(100),
+        branch_id_from int
 	);
     
 create table inventory_items (
@@ -15,7 +16,9 @@ create table inventory_items (
 	inventory_id int not null,
         item_id int not null,
         quantity float not null, 
-        remarks varchar(250)
+        remarks varchar(250),
+        original_quantity float,
+        parent_id int
 	);
 
 create table inventory_transfer (
