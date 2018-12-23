@@ -255,7 +255,7 @@ class adminController extends Controller
 	    }
     }
 
-    public function search_inventory_balance(Request $request){
+    public function getSearchItems_balance(Request $request){
     	if ($request->ajax())
     	{
 	        try{
@@ -296,15 +296,4 @@ class adminController extends Controller
 	        }
 	    }
     }
-
-
-	
-
-
-
-
-
-
-
-
 }

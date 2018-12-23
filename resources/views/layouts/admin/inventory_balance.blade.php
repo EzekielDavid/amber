@@ -251,7 +251,7 @@
             function searchItems(cat1, cat2, cat3,branch){
               $.ajax({
                     type: 'post',
-                    url: 'searchItems',
+                    url: 'getSearchItems',
                     data: {
                         'cat1': cat1,
                         'cat2': cat2,

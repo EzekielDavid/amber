@@ -50,7 +50,8 @@ Route::group(['middleware'=>['authen','roles'],'roles'=>['Administrator']],funct
 
 	Route::post('/getBranchStock', ['as'=>'getBranchStock', 'uses'=>'admin\adminController@getBranchStock']);
 
-	Route::post('/searchItems', ['as'=>'searchItems', 'uses'=>'admin\adminController@search_inventory_balance']);
+	Route::post('/getSearchItems', ['as'=>'getSearchItems', 'uses'=>'admin\adminController@getSearchItems_balance']);
+
 
 	Route::resource('admin', 'adminController');
 		
