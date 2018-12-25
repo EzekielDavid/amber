@@ -266,25 +266,25 @@ class adminController extends Controller
 		    	->where(function($query ) use ($request)
 				{
 				        if($request->branch !== null)
-					        $query->WhereIn( 'branch_id', $request->branch );
+					        $query->whereIn( 'branch_id', $request->branch );
 											
 				})
 				->where(function($query ) use ($request)
 				{
 				        if($request->cat1 !== null)
-					        $query->WhereIn( 'category1', $request->cat1 );
+					        $query->whereIn( 'category1', $request->cat1 );
 											
 				})
 				->where(function($query ) use ($request)
 				{
 				        if($request->cat2 !== null)
-					        $query->WhereIn( 'category2', $request->cat2 );
+					        $query->whereIn( 'category2', $request->cat2 );
 											
 				})
 				->where(function($query ) use ($request)
 				{
 				        if($request->cat3 !== null)
-					        $query->WhereIn( 'category3', $request->cat3 );
+					        $query->whereIn( 'category3', $request->cat3 );
 											
 				})
 		    	->get();
